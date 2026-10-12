@@ -19,7 +19,7 @@ Build mode: learn
   Learner check: Open http://localhost:5173, paste a messy paragraph of your own, click Clean up, and read the result. Click Copy transcript and paste it somewhere. Say whether the cleanup kept what you meant.
   Commit: `Add paste-to-clean transcript scaffold and cleanup endpoint`
 
-- [ ] **2. Upload one audio file and get its cleaned transcript**
+- [x] **2. Upload one audio file and get its cleaned transcript**
   Becomes usable: Choose one audio file, watch the steps Uploading, Transcribing, and Cleaning up move in order, then read the cleaned transcript and copy it.
   Why now: This connects the whole path end to end with the riskiest outside service (AssemblyAI) before recording or batch logic exists. The spec's open format question gets answered here with real files.
   PRD ref: `prd.md > The Core Journey` (steps 2, 3, 6, 7); `prd.md > Processing` (the three steps in order)
@@ -91,7 +91,7 @@ Build mode: learn
 
 ## Hands-on Checkpoints
 
-- [ ] Early usable behavior explored — after slice 2, the first real transcript from an audio file. The learner tries it with their own recording and gives feedback on the cleanup quality, the steps, and the layout before the recording and batch work begins.
+- [x] Early usable behavior explored — after slice 2, the first real transcript from an audio file. The learner tries it with their own recording and gives feedback on the cleanup quality, the steps, and the layout before the recording and batch work begins.
 - [ ] Final kick-the-tires exploration and feedback completed
 
 ## Final Review
@@ -111,4 +111,7 @@ Reflection: Not yet run.
 Activity mode: Not yet run.
 
 ## Revisions
+
+- Removed the paste box from the first screen when uploads arrived in slice 2 — the PRD's first screen holds only Record and Upload, and uploads now use the same cleanup path the paste box tested. The cleanup endpoint is still available through the docs page at /docs.
+- Added a collapsed "Debug: raw transcript" view under the file, so the learner can compare the raw words with the cleaned text during testing. Remove it before `6-ship`.
 
