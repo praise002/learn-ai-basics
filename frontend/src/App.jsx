@@ -3,6 +3,7 @@ import AudioPlayer from "./components/AudioPlayer.jsx";
 import RecordButton from "./components/RecordButton.jsx";
 import StepIndicator from "./components/StepIndicator.jsx";
 import UploadButton from "./components/UploadButton.jsx";
+import { checkAudioFile } from "./lib/checks.js";
 import { processFile } from "./lib/batchRunner.js";
 
 export default function App() {
@@ -11,9 +12,14 @@ export default function App() {
   const [message, setMessage] = useState("");
   const busy = entry?.status === "running";
 
-  function handleFile(file) {
+  async function handleFile(file) {
     setCopied(false);
     setMessage("");
+    const problem = await checkAudioFile(file);
+    if (problem) {
+      setMessage(problem);
+      return;
+    }
     setEntry({ name: file.name, file, step: "uploading", status: "running" });
     processFile(file, (patch) => setEntry((prev) => ({ ...prev, ...patch })));
   }

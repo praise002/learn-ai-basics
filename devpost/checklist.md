@@ -39,7 +39,7 @@ Build mode: learn
   Learner check: Click Record, talk for about thirty seconds, click Stop, and read the transcript. Then block the microphone in your browser settings, click Record, and check the message.
   Commit: `Record a voice note in the browser`
 
-- [ ] **4. Refuse files that are too long or unsupported before processing**
+- [x] **4. Refuse files that are too long or unsupported before processing**
   Becomes usable: A file over 60 minutes, or in a type other than MP3, M4A, WAV, or WebM, is refused right away with a message saying why. Nothing starts processing.
   Why now: Bad input gets stopped before any paid AI call, and before the batch exists. The batch in the next slice will then only hold acceptable files.
   PRD ref: `prd.md > Recording and uploading` (the accepted-files checkboxes); `prd.md > States and Boundaries` (Too long or unsupported file); `prd.md > Open Questions` (1, the message wording and placement, is decided here)
