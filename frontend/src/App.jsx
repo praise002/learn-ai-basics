@@ -1,4 +1,6 @@
 import { useState } from "react";
+import AudioPlayer from "./components/AudioPlayer.jsx";
+import RecordButton from "./components/RecordButton.jsx";
 import StepIndicator from "./components/StepIndicator.jsx";
 import UploadButton from "./components/UploadButton.jsx";
 import { processFile } from "./lib/batchRunner.js";
@@ -6,11 +8,13 @@ import { processFile } from "./lib/batchRunner.js";
 export default function App() {
   const [entry, setEntry] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [message, setMessage] = useState("");
   const busy = entry?.status === "running";
 
   function handleFile(file) {
     setCopied(false);
-    setEntry({ name: file.name, step: "uploading", status: "running" });
+    setMessage("");
+    setEntry({ name: file.name, file, step: "uploading", status: "running" });
     processFile(file, (patch) => setEntry((prev) => ({ ...prev, ...patch })));
   }
 
@@ -31,13 +35,16 @@ export default function App() {
     <main className="mx-auto max-w-2xl px-4 py-12 font-sans text-slate-800">
       <h1 className="text-2xl font-semibold">Voice Note to Clean Transcript</h1>
 
-      <section className="mt-8">
+      <section className="mt-8 flex flex-wrap items-center gap-3">
+        <RecordButton onFile={handleFile} disabled={busy} onMessage={setMessage} />
         <UploadButton onFile={handleFile} disabled={busy} />
       </section>
+      {message && <p className="mt-3 text-red-700">{message}</p>}
 
       {entry && (
         <section className="mt-8">
           <p className="text-sm font-medium">{entry.name}</p>
+          <AudioPlayer file={entry.file} />
           <StepIndicator step={entry.step} status={entry.status} />
           {entry.error && <p className="mt-3 text-red-700">{entry.error}</p>}
           {entry.rawText && (

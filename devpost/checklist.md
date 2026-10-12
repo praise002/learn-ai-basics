@@ -29,7 +29,7 @@ Build mode: learn
   Learner check: Upload an audio file of yours (a few minutes, MP3 or M4A). Watch the steps move in order, then read the cleaned transcript. Say whether the words match what you said.
   Commit: `Transcribe an uploaded audio file and show the cleaned transcript`
 
-- [ ] **3. Record a voice note in the browser**
+- [x] **3. Record a voice note in the browser**
   Becomes usable: Click Record, speak, click Stop, and the recording goes through the same steps as an upload.
   Why now: Recording is the second way in, and it reuses the pipeline proven in slice 2. It also tests which recording format the browser produces against AssemblyAI, a question the spec left open.
   PRD ref: `prd.md > Recording and uploading` (the recording bullet); `prd.md > The Core Journey` (step 2)
@@ -114,4 +114,5 @@ Activity mode: Not yet run.
 
 - Removed the paste box from the first screen when uploads arrived in slice 2 — the PRD's first screen holds only Record and Upload, and uploads now use the same cleanup path the paste box tested. The cleanup endpoint is still available through the docs page at /docs.
 - Added a collapsed "Debug: raw transcript" view under the file, so the learner can compare the raw words with the cleaned text during testing. Remove it before `6-ship`.
+- Added a playback control under each file (`frontend/src/components/AudioPlayer.jsx`), so the learner can hear the recording or upload before reading the transcript. Requested during slice 3 testing; not in the PRD, so decide at final review whether to keep it.
 
