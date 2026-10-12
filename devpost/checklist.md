@@ -49,7 +49,7 @@ Build mode: learn
   Learner check: Try to upload a text file or an image. Then try a file over an hour if you have one. Confirm you get a message and nothing starts.
   Commit: `Refuse unsupported or over-length files before processing`
 
-- [ ] **5. Upload several files as a batch, processed in order**
+- [x] **5. Upload several files as a batch, processed in order**
   Becomes usable: Select several files at once. They process one after another in the order selected. Each row shows its status, and the Record and Upload buttons are disabled until the batch finishes. Finished transcripts appear in batch order with their copy buttons.
   Why now: Batches are the POC's main working pattern, and they build directly on the single-file runner from slice 2.
   PRD ref: `prd.md > Processing` (all bullets except the notification and failure ones); `prd.md > Reading and copying the transcript` (the list in batch order); `prd.md > The Core Journey` (steps 2, 4)
@@ -114,5 +114,6 @@ Activity mode: Not yet run.
 
 - Removed the paste box from the first screen when uploads arrived in slice 2 — the PRD's first screen holds only Record and Upload, and uploads now use the same cleanup path the paste box tested. The cleanup endpoint is still available through the docs page at /docs.
 - Added a collapsed "Debug: raw transcript" view under the file, so the learner can compare the raw words with the cleaned text during testing. Remove it before `6-ship`.
+- A new batch replaces the previous list once the old batch has finished. The PRD doesn't say what happens to earlier results, so this was the simplest reading; the learner accepted it during slice 5 testing.
 - Added a playback control under each file (`frontend/src/components/AudioPlayer.jsx`), so the learner can hear the recording or upload before reading the transcript. Requested during slice 3 testing; not in the PRD, so decide at final review whether to keep it.
 

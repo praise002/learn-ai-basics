@@ -22,6 +22,13 @@ export async function processFile(file, onUpdate) {
   }
 }
 
+// Runs the batch one file at a time, in the order the files were picked.
+export async function runBatch(entries, onUpdate) {
+  for (const entry of entries) {
+    await processFile(entry.file, (patch) => onUpdate(entry.id, patch));
+  }
+}
+
 async function waitForTranscript(id) {
   while (true) {
     const result = await getTranscript(id);
