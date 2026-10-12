@@ -79,7 +79,7 @@ Build mode: learn
   Learner check: Upload a silent or music-only clip. Confirm the Failed state and message, then click Try again and watch it rerun.
   Commit: `Show failed files with a message and Try again`
 
-- [ ] **8. Start the app from the README on a fresh copy**
+- [x] **8. Start the app from the README on a fresh copy**
   Becomes usable: Someone who has never seen the project can follow the README, add their two keys, and run the app.
   Why now: The README is the last piece of the submission path. Checking it at the end catches anything the earlier slices assumed without writing down.
   PRD ref: `prd.md > What We're Building` (the whole list, as a final check)
@@ -115,5 +115,6 @@ Activity mode: Not yet run.
 - Removed the paste box from the first screen when uploads arrived in slice 2 — the PRD's first screen holds only Record and Upload, and uploads now use the same cleanup path the paste box tested. The cleanup endpoint is still available through the docs page at /docs.
 - Added a collapsed "Debug: raw transcript" view under the file, so the learner can compare the raw words with the cleaned text during testing. Remove it before `6-ship`.
 - A new batch replaces the previous list once the old batch has finished. The PRD doesn't say what happens to earlier results, so this was the simplest reading; the learner accepted it during slice 5 testing.
+- Added Docker support at the learner's request: `docker-compose.yml`, `backend/Dockerfile`, `frontend/Dockerfile`, `frontend/nginx.conf`, and a README section. It's a local container option, not hosting, so the spec's no-hosting decision still stands. Not yet built or run: this environment cannot reach the Docker registry. Needs a build test on the learner's machine.
 - Added a playback control under each file (`frontend/src/components/AudioPlayer.jsx`), so the learner can hear the recording or upload before reading the transcript. Requested during slice 3 testing; not in the PRD, so decide at final review whether to keep it.
 
