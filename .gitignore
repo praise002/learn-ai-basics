@@ -1,0 +1,13 @@
+# Personal learning context: keep out of commits by default
+/devpost/learner-profile.md
+
+# Local credentials (secret-free templates are allowed)
+.env
+.env.*
+!.env.example
+
+# Local dependencies and build output
+backend/.venv/
+__pycache__/
+frontend/node_modules/
+frontend/dist/
