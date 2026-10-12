@@ -59,7 +59,7 @@ Build mode: learn
   Learner check: Select three audio files of yours together. Switch to another tab while they process, then come back. Confirm the list is in order, the current step is marked, and the add buttons are disabled until everything is done.
   Commit: `Process uploaded files as a batch, one at a time`
 
-- [ ] **6. Get one notification when the whole batch is done**
+- [x] **6. Get one notification when the whole batch is done**
   Becomes usable: When the last file in the batch finishes, a browser notification appears once. If notifications are blocked, the batch still finishes on screen.
   Why now: The "walk away and get told" promise depends on the batch from slice 5 already existing.
   PRD ref: `prd.md > Processing` (the notification and tab-switching bullets); `prd.md > What We're Building` (browser notification)

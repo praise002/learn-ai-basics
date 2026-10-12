@@ -4,6 +4,7 @@ import RecordButton from "./components/RecordButton.jsx";
 import UploadButton from "./components/UploadButton.jsx";
 import { runBatch } from "./lib/batchRunner.js";
 import { checkAudioFile } from "./lib/checks.js";
+import { notifyBatchFinished, requestNotificationPermission } from "./lib/notify.js";
 
 export default function App() {
   const [batch, setBatch] = useState([]);
@@ -17,6 +18,7 @@ export default function App() {
   // Files that fail the checks are refused with a message; the rest start a new batch.
   async function handleFiles(files) {
     setMessage("");
+    requestNotificationPermission();
     const problems = [];
     const accepted = [];
     for (const file of files) {
@@ -31,7 +33,8 @@ export default function App() {
     if (accepted.length === 0) return;
 
     setBatch(accepted);
-    runBatch(accepted, updateEntry);
+    const { done, total } = await runBatch(accepted, updateEntry);
+    notifyBatchFinished(done, total);
   }
 
   return (
