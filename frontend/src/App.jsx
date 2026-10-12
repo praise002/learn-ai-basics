@@ -15,6 +15,15 @@ export default function App() {
     setBatch((prev) => prev.map((entry) => (entry.id === id ? { ...entry, ...patch } : entry)));
   }
 
+  // Try again reruns one failed file from the Uploading step, using the file we kept.
+  async function retryEntry(id) {
+    const entry = batch.find((e) => e.id === id);
+    if (!entry) return;
+    updateEntry(id, { status: "waiting", step: undefined, error: undefined, rawText: undefined, cleanText: undefined });
+    const { done, total } = await runBatch([{ ...entry, status: "waiting" }], updateEntry);
+    notifyBatchFinished(done, total);
+  }
+
   // Files that fail the checks are refused with a message; the rest start a new batch.
   async function handleFiles(files) {
     setMessage("");
@@ -47,7 +56,7 @@ export default function App() {
       </section>
       {message && <p className="mt-3 text-red-700">{message}</p>}
 
-      {batch.length > 0 && <BatchList entries={batch} />}
+      {batch.length > 0 && <BatchList entries={batch} busy={busy} onRetry={retryEntry} />}
     </main>
   );
 }

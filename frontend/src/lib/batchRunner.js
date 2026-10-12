@@ -20,7 +20,11 @@ export async function processFile(file, onUpdate) {
     onUpdate({ status: "done", cleanText: cleaned });
     return "done";
   } catch (err) {
-    onUpdate({ status: "failed", error: err.message });
+    const message =
+      err instanceof TypeError
+        ? "Could not reach the server. Check that the backend is running."
+        : err.message;
+    onUpdate({ status: "failed", error: message });
     return "failed";
   }
 }
@@ -39,8 +43,19 @@ export async function runBatch(entries, onUpdate) {
 async function waitForTranscript(id) {
   while (true) {
     const result = await getTranscript(id);
-    if (result.status === "completed") return result.text;
-    if (result.status === "error") throw new Error(result.error);
+    if (result.status === "completed") {
+      if (!result.text?.trim()) throw new Error(NO_SPEECH);
+      return result.text;
+    }
+    if (result.status === "error") throw new Error(transcriptError(result.error));
     await new Promise((resolve) => setTimeout(resolve, POLL_MS));
   }
+}
+
+const NO_SPEECH = "No speech found in this recording";
+
+// AssemblyAI's own wording is for developers; translate the common cases.
+function transcriptError(detail) {
+  if (detail && /spoken audio/i.test(detail)) return NO_SPEECH;
+  return "AssemblyAI couldn't transcribe this file. Try again.";
 }

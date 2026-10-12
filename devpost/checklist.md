@@ -69,7 +69,7 @@ Build mode: learn
   Learner check: Allow notifications, start a batch of two, switch to another tab, and wait for the notification. Then block notifications and run one file to confirm it still finishes on screen.
   Commit: `Notify once when a batch finishes`
 
-- [ ] **7. Show a failed file with a message and Try again**
+- [x] **7. Show a failed file with a message and Try again**
   Becomes usable: A file that fails shows Failed at the step where it stopped, with a plain message. Try again reruns that file from Uploading. The rest of the batch keeps going.
   Why now: Failure is the last thing a real user hits. It comes after the batch, so the runner's states are already in place.
   PRD ref: `prd.md > Failure and retry` (both bullets); `prd.md > States and Boundaries` (Failed)

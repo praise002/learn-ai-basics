@@ -44,11 +44,10 @@ def _require_assemblyai_key():
 
 def _outside_service_error(error: httpx.HTTPError) -> HTTPException:
     if isinstance(error, httpx.HTTPStatusError):
-        return HTTPException(
-            status_code=502,
-            detail=f"AssemblyAI returned {error.response.status_code}",
-        )
-    return HTTPException(status_code=502, detail=f"AssemblyAI request failed: {error}")
+        if error.response.status_code == 401:
+            return HTTPException(status_code=502, detail="Check the AssemblyAI key in backend/.env")
+        return HTTPException(status_code=502, detail="AssemblyAI couldn't handle this request. Try again.")
+    return HTTPException(status_code=502, detail="Could not reach AssemblyAI. Try again.")
 
 
 @app.post("/api/cleanup", response_model=CleanupResponse)
@@ -57,8 +56,12 @@ async def cleanup(body: CleanupRequest):
         raise HTTPException(status_code=500, detail="Add OPENROUTER_API_KEY to backend/.env")
     try:
         cleaned = await clean_transcript(body.text)
-    except httpx.HTTPError as error:
-        raise HTTPException(status_code=502, detail=f"Cleanup failed: {error}")
+    except httpx.HTTPStatusError as error:
+        if error.response.status_code == 401:
+            raise HTTPException(status_code=502, detail="Check the OpenRouter key in backend/.env")
+        raise HTTPException(status_code=502, detail="Cleanup failed. Try again.")
+    except httpx.HTTPError:
+        raise HTTPException(status_code=502, detail="Cleanup failed. Try again.")
     return CleanupResponse(text=cleaned)
 
 
