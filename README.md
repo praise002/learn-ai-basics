@@ -4,6 +4,10 @@ Record a voice note, or upload one or more audio files, and get back a clean, co
 
 The app runs on your own computer. Two outside services do the work: AssemblyAI turns the audio into text, and OpenRouter cleans the text up.
 
+## Demo
+
+Watch a demo of the app in action: [Video Demo](https://drive.google.com/file/d/1RjuwarMKnCfuWy0J7lcLfYmRLKFXwN_U/view?usp=drivesdk)
+
 ## What you need
 
 - Python 3.11 or newer
